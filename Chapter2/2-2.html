@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<head>
+    <title>자료와 변수</title>
+</head>
+<body>
+<script>
+const pi = 3.141592;
+console.log(pi);
+
+const r = 10;
+console.log(2 * pi * r);
+console.log(pi * r * r);
+
+let g = 9.8
+let m = 10
+console.log(g * m)
+
+g = 9.80665
+console.log(g * m)
+
+let value = 10
+value += 10
+console.log(value)
+</script>
+<script>
+let list = ''
+
+list += '<ul>'
+list += ' <li>Hello</li>'
+list += ' <li>JavaScript...!</li>'
+list += '</ul>'
+
+document.write(list)
+</script>  
+
+<script>
+const listA = '<ul><li>Hello</li><li>JavaScript...!</li></ul>'  
+document.write(listA)  
+</script>
+
+<script>
+document.write('<ul><li>Hello</li><li>JavaScript...!</li></ul>')
+</script>
+
+<script>
+let number = 10
+number++
+
+alert(number)
+</script>
+<script>
+let numberA = 10
+alert(numberA++)
+alert(numberA++)
+alert(numberA++)    
+</script>
+
+<script>
+let numberB = 10
+
+document.write(numberB)
+numberB++
+numberB++
+document.write(numberB)
+document.write(numberB)
+numberB--
+numberB--
+document.write(numberB)
+</script>
+
+<script>
+const numberC = 10
+
+console.log(++numberC)
+console.log(numberC++)
+console.log(++numberC)
+console.log(numberC--)
+</script>    
+</body>
+</html>
