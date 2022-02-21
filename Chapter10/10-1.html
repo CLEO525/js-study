@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<title>리액트 라이브러리</title>
+
+<!--리액트 기본 사용 준비-->
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+ <div id="root"></div>  //div#root 태그를 만든다
+ <!--리액트를 사용하는 코드 입력-->  
+ <script type="text/babel">
+
+
+ </script> 
+
+
+
+ <!--루트 컴포넌트 출력하기-->
+ <script type="text/babel">
+     const component = <h1>리액트 기본</h1>
+     const container = document.getElementById('root')
+
+     ReactDOM.render(component, container)
+ </script>
+
+<!--JSX 기본문법 표현식 출력하기-->
+
+<script type="text/babel">
+const name = '구름'
+const imgUrl = 'http://placedog.net/400/200'
+const component = <div>
+    <h1>{name} 님 안녕하세요!</h1>
+    <img src={imgUrl} />
+</div>
+const container = document.getElementById('root')
+
+ReactDOM.render(component, container)
+</script>
+
+
+<!--루트 컴포넌트 출력을 클래스 컴포넌트로 구현하기-->
+<script type="text/babel">
+class App extends React.Component {
+    render () {
+        return <h1>리액트 기본</h1>
+    }
+}
+
+const container = document.getElementById('root')
+ReactDOM.render(<App />, container)
+</script>
+
+
+<!--컴포넌트의 속성 사용하기-->
+<script type="text/babel">
+    class App extends React.Component {
+        render () {
+            return <div>
+            <h1>{this.props.name} 님 안녕하세요!</h1>
+            <img src={this.props.imgUrl} />
+            </div>
+        }
+    }
+
+const container = document.getElementById('root')
+ReactDOM.render(<App name="구름" imgUrl="http://placedog.net/400/20" />, container)
+</script>
+
+<!--리액트를 활용한 현재 시간 출력 프로그램-->
+<script type="text/babel">
+    class App extends React.Component {
+        constructor (props) {
+            super(props)
+            this.state = {
+                time: new Date()
+            }
+        }
+
+        render () {
+            return <h1>{this.state.time.toLocaleTimeString()}</h1>
+        }
+
+        componentDidMount () {
+            this.timerID = setInterval(() => {
+                this.setState({
+                    time: new Date()
+                })
+            }, 1000)
+        }
+
+        componentWillUnmount () {
+            clearInterval(this.timerID)
+        }
+    }
+
+const container = document.getElementById('root')
+ReactDOM.render(<App />, container)
+</script>
+
+<!--이벤트 연결하기-->
+<script type="text/babel">
+class App extends React.Component {
+    constructor (props) {
+        super(props)
+        this.state = {
+            count: 0
+        }
+        
+        this.countUp = this.countUp.bind(this)
+    }
+
+render () {
+    return <div>
+        <h1>클릭한 횟수: {this.state.count}</h1>
+        <button onClick={this.countUp}>클릭</button>
+    </div>
+}
+countUp (event) {
+    this.setState({
+        count: this.state.count +1
+    })
+}
+}
+
+const container = document.getElementById('root')
+ReactDOM.render(<App />, container)
+</script>
+</body>
+
+
+<!--이벤트 연결하기: 다른 this 바인트 방법(1)-->
+<script type="text/babel">
+class App extends React.Component {
+    constructor (props) {
+        super(props)
+        this.state = {
+            count: 0
+        }
+    }
+
+    render () {
+        return <div>
+        <h1>클릭한 횟수: {this.state.count}</h1>
+        <button onClick={(e) => this.countUp(e)}>클릭</button>
+        </div>
+    }
+
+    countUp (event) {
+        this.setState({
+            count: this.state.count + 1
+        })
+    }
+}
+
+const container = document.getElementById('root')
+ReactDOM.render(<App />,container)
+</script>
+
+
+<!--이벤트 연결하기: 다른 this 바인트 방법(2)-->
+<script type="text/babel">
+class App extends React.Component {
+    constructor (props) {
+        super(props) 
+            this.state = {
+                count:0
+            }
+        }
+        render () {
+            return <div>
+            <h1>클릭한 횟수: {this.state.count}</h1>
+            <button onClick={this.countUp}>클릭</button>
+            </div>
+        }
+        countUp = (event) => {
+            this.setState({
+                count: this.state.count + 1
+            })
+        }
+    }
+const container = document.getElementById('root')
+ReactDOM.render(<App />, container)
+</script>
+
+<!--입력 양식 사용하기-->
+<script type="text/babel">
+class App extends React.Component {
+    constructor (props) {
+        super(props)
+        this.state = {
+            text: ''
+        }
+        this.handleChange = this.handleChange.bind(this)
+    }
+    render () {
+        return <div>
+        <input value=
+        {this.state.text}
+        onChange={this.handleChange} />
+        <h1>{this.state.text}</h1>
+        </div>
+    }
+    handleChange (event) {
+        this.setState({
+            text: event.target.value
+        })
+    }
+}
+const container = document.getElementById('root')
+ReactDOM.render(<App />, container)
+</script>
+
+<!--체크 상태에 따라서 스타일 지정하기-->
+<script type="text/babel">
+class App extends React.Component {
+    constructor (props) {
+        super(props)
+        this.state = {
+            checked: false
+        }
+    this.handleClick = this.handleClick.bind(this) 
+    }
+    render () {
+        const textStyle = {
+            color: this.state.checked ? 'blue' : 'red'
+        }
+
+        return <div>
+        <input type="checkbox" onClick={this.handleClick} />
+        <h1 style={textStyle}>글자</h1>
+        </div>
+    }
+    handleClick (event) {
+        this.setState({
+            checked: event.target.checked
+        })
+    }
+}
+
+const container = document.getElementById('root')
+ReactDOM.render(<App />, container)
+</script>
+
+<!--컴포넌트 배열 사용하기(1)-->
+<script type="text/babel">
+    class App extends React.Component {
+        render () {
+            const list = [
+                <li>사과</li>,
+                <li>바나나</li>,
+                <li>배</li>,
+                <li>귤</li>
+            ]
+
+            return <ul>{list}</ul>
+        }
+    }
+
+    const container = document.getElementById('root')
+    ReactDOM.render(<App />, container)
+</script>
+
+<!--컴포넌트 배열 사용하기(2)-->
+<script type="text/babel">
+    class App extends React.Component {
+        constructor (props) {
+            super(props)
+            this.state = {
+                fruits: ['사과', '바나나', '배', '귤']
+            }
+        }
+        render () {
+            const list = this.state.fruits.map((item) => {
+                return <li>{item}</li>
+            })
+            return <ul>{list}</ul>
+        }
+    }
+
+    const container = document.getElementById('root')
+    ReactDOM.render(<App />, container)
+</script>
+
+<!--컴포넌트 배열 사용하기(3)-->
+<script type="text/babel">
+    class App extends React.Component {
+        constructor (props) {
+            super(props)
+            this.state = {
+                fruits: ['사과', '바나나', '배', '귤']
+            }
+        }
+
+        render () {
+            return <ul>{
+                this.state.fruits.map((item) => {
+                    return <li>{item}</li>
+                })
+            }</ul>
+        }
+    }
+
+    const container = document.getElementById('root')
+    ReactDOM.render(<App />, container)
+</script>
+
+<!--예제 10-1-4-->
+<script type="text/babel">
+class App extends React.Component {
+    constructor (props) {
+        super(props)
+        this.state = { seconds: 0 }
+        this.handleChange = this.handleChange.bind(this)
+    }
+
+    handleChange (event) {
+        if (event.target.checked) {
+            this.timerID = setInterval(() => {
+                this.setState({
+                    seconds: this.state.seconds + 1
+                })
+            }, 1000)
+        } else {
+            clearInterval(this.timerID)
+        }
+    }
+
+    render () {
+        return <div>
+            <input type="checkbox" onChange={this.handleChange} />
+            <span>타이머 활성화</span>
+            <h1>{this.state.seconds}초</h1>
+    </div>
+    }
+}
+const container = document.getElementById('root')
+ReactDOM.render(<App />, container)
+</script>
+</html>

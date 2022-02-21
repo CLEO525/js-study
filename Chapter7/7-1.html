@@ -1,0 +1,256 @@
+ <!--HTML 코드를 자바 스크립트로 조작하기-->
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>문서 객체 모델</title>
+<script>
+    const h1 = (text) => `<h1>${text}</h1>`
+</script>
+<script>
+    document.body.innerHTML += h1('1번째 script 태그')
+</script>
+</head>
+<body>
+<script>
+    document.body.innerHTML += h1('2번째 script 태그')
+</script>
+<h1>1번째 h1 태그</h1>
+<script>
+    document.body.innerHTML += h1('3번쨰 script 태그')
+</script>
+<h1>2번째 h2 태그</h1>
+</body>
+</html>
+
+<!--DOMContentLoaded 이밴트-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOMContentLoaded</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const h1 = (text) => `<h1>${text}</h1>`
+            document.body.innerHTML += h1('DOMContentLoaded 이벤트 발생')
+        })
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
+
+<!--querySelector()메소드-->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const header = document.querySelector('h1')
+
+        header.textContent =  'HEADERS'
+        header.style.color =  'white'
+        header.style.backgroundColor = 'black'
+        header.style.padding = '10px'
+    })
+</script>
+<body>
+    <h1></h1>
+</body>
+
+<!--querySelectorAll()메소드-->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const headers = document.querySelectorAll('h1')
+
+        headers.forEach((header) => {
+            header.textContent = 'HEADERS'
+            header.style.color = 'white'
+            header.style.backgroundColor = 'black'
+            header.style.padding = '10px'
+        })
+    })
+</script>
+<body>
+    <h1></h1>
+    <h1></h1>
+    <h1></h1>
+    <h1></h1>
+</body>
+
+<!--글자 조작하기-->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const a = document.querySelector('#a')
+        const b = document.querySelector('#b')
+
+        a.textContent = '<h1>textContent 속성</h1>'
+        b.innerHTML = '<h1>innerHTML 속성</h1>'
+    })
+</script>
+<body>
+    <div id="a"></div>
+    <div id="b"></div>
+</body>
+
+<!--속성 조작하기-->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const rects = document.querySelectorAll('.rect')
+
+        rects.forEach((rect, index) => {
+            const width = (index + 1) * 100
+            const src = `http://placekitten.com/${width}/250`
+            rect.setAttribute('src', src)
+        })
+    })
+</script>
+<body>
+    <img class="rect">
+    <img class="rect">
+    <img class="rect">
+    <img class="rect">
+</body>
+
+<!--스타일 조작하기-->
+<script>
+    document.addEventListener('DOMcontentLoaded', () => {
+        const divs = document.querySelectorAll('body > div')
+
+        divs.forEach((div, index) => {
+            console.log(div, index)
+            const val = index * 10
+            div.style.height = `10px`
+            div.style.backgroundColor = `rgba(${val}, ${val}, ${val})`
+        })
+    })
+</script>
+<body>
+<div></div><div></div><div></div><div></div><div></div>
+<div></div><div></div><div></div><div></div><div></div>
+<div></div><div></div><div></div><div></div><div></div>
+</body>
+
+<!--문서 객체 생성하고 추가하기-->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const header =  document.createElement('h1')
+
+        header.textContent = '문서 객체 동적으로 생성하기'
+        header.setAttribute('data-custom', '사용자 정의 속성')
+        header.style.color = 'white'
+        header.style.backgroundColor = 'black'
+
+        document.body.appendChild(header)
+    })
+</script>
+<body>
+</body>
+
+<!--문서 객체 이동하기-->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const divA = document.querySelector('#first')
+        const divB = document.querySelector('#second')
+        const h1 = document.createElement('h1')
+        h1.textContent = '이동하는 h1 태그'
+
+        const toFirst = () => {
+            divA.appendChild(h1)
+            setTimeout(toSecond, 1000)
+        }
+        const toSecond = () => {
+            divB.appendChild(h1)
+            setTimeout(toFirst, 10000)
+        }
+        toFirst()
+    })
+</script>
+<body>
+    <div id="first">
+        <h1>첫 번째 div 태그 내부</h1>
+    </div>
+    <hr>
+    <div id="second">
+        <h1>두 번째 div 태그 내부</h1>
+    </div>
+</body>
+
+<!--문서 객체 제거하기-->
+<script>
+    document.addEventListener('DOMContentLoaded', ()=> {
+        setTimeout(() => {
+            const h1 = document.querySelector('h1')
+
+            h1.parentNode.removeChild(h1)
+            //document.body.removuChild(h1)로 사용할 수도 있음
+        }, 3000)
+    })
+</script>
+<body>
+    <hr>
+    <h1>제거 대상 문서 객체</h1>
+    <hr>
+</body>
+
+<!--이벤트 연결하기-->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let counter = 0
+        const h1 = document.querySelector('h1')
+
+        h1.addEventListener('click', (event) => {
+            counter++
+            h1.textContent = `클릭 횟수: ${counter}`
+        })
+    })
+</script>
+<style>
+h1 {
+    /* 클릭을 여러 번 했을 떄 
+    글자가 선택되는 것을 막기 위한 스타일*/
+    user-select: none;
+}
+</style>
+<body>
+<h1>클릭 횟수: 0</h1>
+</body>
+
+<!--이벤트 연결 제거하기-->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let counter = 0
+        let isConnect = false
+        
+        const h1 = document.querySelector('h1')
+        const p = document.querySelector('p')
+        const connectButton = document.querySelector('#connect')
+        const disconnectButton = document.querySelector('#disconnect')
+        const listener = (event) => {
+            h1.textContent = `클릭 횟수: ${counter++}`
+        }
+    connectButton.addEventListener('click', () => {
+        if (isConnect === false) {
+            h1.addEventListener('click', listener)
+            p.textContent = '이벤트 연결 상태: 연결'
+            isConnect = true
+        }
+    })
+    disconnectButton.addEventListener('click', () => {
+        if (isConnect === true) {
+            h1.removeEventListener('click', listener)
+            p.textContent = '이벤트 연결 상태: 해제'
+            isConnect = false
+        }
+    })
+})
+</script>
+<style>
+    h1 {
+        /* 클릭을 여러 번 했을 떄 
+        글자가 선채되는 것을 막기 위한 스타일 */
+    user-select: none;
+    }
+</style>
+<body>
+    <h1>클릭 횟수: 0</h1>
+    <button id="connect">이벤트 연결</button>
+    <button id="disconnect">이벤트 제거</button>
+    <p>이벤트 연결 상태: 해제</p>
+</body>

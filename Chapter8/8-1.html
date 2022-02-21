@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>예외처리</title>
+</head>
+
+<!--querySelector() 메소드로 추출된 문서 객체가 없는 경우-->
+<body>
+    
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const h1 = document.querySelector('h1')
+        h1.textContent = '안녕하세요'
+    })
+</script>
+
+<!--기본 예외 처리-->
+<body>
+
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const h1 = document.querySelector('h1')
+        if(h1) {
+            h1.textContent = '안녕하세요'
+        } else {
+            console.log('h1태그를 추출할 수 없습니다.')
+        }
+    })
+</script>
+
+<!--try catch 구문의 사용-->
+<script>
+    try{
+        willExcept.byeBye()
+        console.log("try 구문의 마지막 줄")
+    } catch (exception) {
+        console.log("catch 구문의 마지막 줄")
+    }
+</script>
+
+<!--finally 구문-->
+<script>
+    try {
+        willExcept.byeBye()
+        console.log("try 구문의 마지막 줄")
+    } catch (exception) {
+        console.log("catch 구문의 마지막 줄")
+    } finally {
+        console.log("finally 구문의 마지막 줄")
+    }
+</script>
+
+<!--예외 처리 구문 내부에서 return 사용하기(1)-->
+<script>
+    function test () {
+        try {
+            alert('A 위치입니다.')
+            throw "예외 강제 발생"
+        } catch (exception) {
+            alert('B 위치입니다.')
+            return
+        }
+        alert('C 위치입니다.')
+    }
+
+    test()
+</script>
+
+<!--예외 처리 구문 내부에서 return 사용하기(2)-->
+<script>
+    function test () {
+        try {
+            alert('A 위치입니다.')
+            throw "예외 강제 발생"
+        } catch (exception) {
+            alert('B 위치입니다.')
+            return
+        } finally {
+            alert('C 위치입니다.')
+        }
+    }
+    test()
+</script>
+</html>

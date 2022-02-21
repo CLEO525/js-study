@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<title>객체</title>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+</head>
+<body>
+<!--프로토 타입으로 숫자 메소드 추가하기-->
+<script>
+Number.prototype.power = function (n = 2) {
+    return this.valueOf() ** n
+}
+
+const a = 12
+console.log('a.power():', a.power())
+console.log('a.power(3):', a.power(3))
+console.log('a power(4):', a.power(4))
+</script>
+
+<!--프로토 타입으로 문자열 메소드 추가하기-->
+<script>
+String.prototype.contain = function (data) {
+    return this.indexOf(data) >= 0
+}
+
+Array.prototype.contain = function (data) {
+    return this.indexOf(data) >= 0
+}
+
+const a = '안녕하세요'
+console.log('안녕 in 안녕하세요:', a.contain('안녕'))
+console.log('없는데 in 안녕하새요:', a.contain('없는데'))
+
+const b = [273, 32, 103, 57, 52]
+console.log('273 in [273, 32, 103, 57, 52]', b.contain(273))
+console.log('0 in [273, 32, 103, 57, 52]:', b.contain(0))
+</script>
+
+<!--JSON.stringify() 메소드-->
+<script>
+const data = [{
+    name: '혼자 공부하는 파이썬',
+    price: 18000,
+    pubilsher: '한빛미디어'
+},{
+    name: 'HTML5 웹 프로그래밍 입문',
+    price: 26000,
+    pubilsher: '한빛아카데미'
+}]
+
+console.log(JSON.stringify(data))
+console.log(JSON.stringify(data, null, 2))
+</script>
+
+<!--JSON.parse() 메소드-->
+<script>
+const data = [{
+    name: '혼자 공부하는 파이썬',
+    price: 18000,
+    pubilsher: '한빛미디어'
+},{
+    name: 'HTML5 웹 프로그래밍 입문',
+    price: 26000,
+    pubilsher: '한빛아카데미'
+}]
+
+const json = JSON.stringify(data)
+console.log(json)
+
+console.log(JSON.parse(json))
+</script>
+
+<!--Math.random() 메소드-->
+<script>
+const num = Math.random()
+
+console.log('# 랜덤한 숫자')
+console.log('0-1 사이의 랜덤한 숫자:', num)
+console.log('')
+
+console.log('# 랜덤한 숫자 범위 확대')
+console.log('0~10 사이의 랜덤한 숫자:', num * 10)
+console.log('0~50 사이의 랜덤한 숫자:', num * 50)
+console.log('')
+
+console.log('# 랜덤한 숫자 범위 이동')
+console.log('-5~5 사이의 랜덤한 숫자:', num * 10 - 5)
+console.log('-25~25 사이의 랜덤한 숫자:', num * 50 - 25)
+console.log('')
+
+console.log('# 랜덤한 정수 숫자')
+console.log('-5~5 사이의 랜덤한 정수 숫자:', Math.floor(num * 10 - 5))
+console.log('-25~25 사이의 랜덤한 정수 숫자:', Math.floor(num * 50 - 25))
+</script>
+
+<!--예제 6-2-1-->
+<script>
+const num = 52000
+num.원  = function () {
+    return this.valueOf() + '원'
+}
+console.log(num.원())
+</script>
+
+<!--예제 6-2-3-->
+<script>
+const degree = 90
+const radian = degree * (Math.PI / 180)
+
+console.log(Math.sin(radian))
+</script>
+
+<!--예제 6-2-5-->
+<script>
+const books = [{
+    name: '혼자 공부하는 파이썬',
+    price: 18000,
+    pubilsher: '한빛미디어'
+},{
+    name: 'HTML5 웹 프로그래밍 입문',
+    price: 26000,
+    pubilsher: '한빛아카데미'
+},{
+    name: '머신러닝 딥러닝 실전 개발 입문',
+    price: 30000,
+    pubilsher: '위키북스'
+},{
+    name: '딥러닝을 위한 수학',
+    price: 25000,
+    pubilsher: '위키북스'
+}]
+
+const output = _.sortBy(books, (book)=> book.name)
+console.log(JSON.stringify(output, null, 2))
+</script>
+</body>
+</html>
